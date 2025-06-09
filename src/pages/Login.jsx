@@ -32,7 +32,7 @@ const Login = () => {
           } else {
             
 
-          const { _id, name, role } = res.data.data;
+          const { _id, name, role } = response.data.data;
              localStorage.setItem("user", JSON.stringify({ _id, name, role }));
                toast.success("Login successful");
             setUserName(user);

@@ -1,11 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  Navigate,
-} from "react-router-dom";
+import {BrowserRouter as Router,Routes,Route,useLocation,} from "react-router-dom";
 import axios from "axios";
 
 import Home from "./components/Home/Home";
@@ -38,8 +32,7 @@ export const ContextCart = createContext();
 
 const AppContent = () => {
   const location = useLocation();
-const storedUser = JSON.parse(localStorage.getItem("user"));
-
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
   const [userName, setUserName] = useState(storedUser);
   const [loadingUser, setLoadingUser] = useState(true);
@@ -49,9 +42,12 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
     axios
       .get("http://localhost:5000/api/user/me", { withCredentials: true })
       .then((res) => {
-        const user = res.data.data
+        const { _id, name, role } = res.data.data;
+        const user = { _id, name, role };
+
         setUserName(user);
         localStorage.setItem("user", JSON.stringify(user));
+
         return axios.get("http://localhost:5000/api/user/cartcount", {
           withCredentials: true,
         });
@@ -67,34 +63,16 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
       });
   }, []);
 
-  const providerValue = {
-    conCart,
-    setConCart,
-    userName,
-    setUserName,
-    loadingUser,
-    setLoadingUser,
-  };
+  const providerValue = {conCart,setConCart,userName,setUserName,loadingUser,setLoadingUser,};
 
   const hideNavbarPaths = ["/admin", "/productlist", "/user", "/add"];
-  const hideFooterPaths = [
-    "/signup",
-    "/login",
-    "/cart",
-    "/OrderList",
-    "/admin",
-    "/error",
-    "/shop",
-    "/productlist",
-    "/user",
-    "/add",
-    "/buynowdetails",
-  ];
+  const hideFooterPaths = ["/signup","/login","/cart","/OrderList","/admin","/error","/shop","/productlist","/user","/add","/buynowdetails","/*"];
 
   return (
     <ContextCart.Provider value={providerValue}>
       {!hideNavbarPaths.some((path) => location.pathname.includes(path)) &&
         !location.pathname.startsWith("/payment") && <Navbar />}
+
       <Routes>
         <Route
           path="/"
@@ -113,26 +91,20 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
         <Route
           path="/shop"
           element={
-            userName?.role === "admin" ? (
-             <NotFound />
-            ) : (
-              <Shop />
-            )
+            userName?.role === "admin" ? <NotFound /> : <Shop />
           }
         />
-
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Productpage />} />
         <Route
-  path="/cart"
-  element={
-    <ProtectedRoute allowedRoles={["user"]}>
-      <Cart />
-    </ProtectedRoute>
-  }
-/>
-
+          path="/cart"
+          element={
+            <ProtectedRoute allowedRoles={["user"]}>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/payment/:id"
           element={
@@ -158,7 +130,8 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
           }
         />
 
-        {/* Admin-protected routes */}
+
+        {/* Admin Routes */}
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route
           path="/admin"
