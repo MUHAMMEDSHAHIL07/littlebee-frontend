@@ -38,30 +38,31 @@ const AppContent = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [conCart, setConCart] = useState(0);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/user/me", { withCredentials: true })
-      .then((res) => {
-        const { _id, name, role } = res.data.data;
-        const user = { _id, name, role };
+useEffect(() => {
+  axios
+    .get("https://littlebee-backend.onrender.com/api/user/me", { withCredentials: true })
+    .then((res) => {
+      const { _id, name, role } = res.data.data;
+      const user = { _id, name, role };
 
-        setUserName(user);
-        localStorage.setItem("user", JSON.stringify(user));
+      setUserName(user);
+      localStorage.setItem("user", JSON.stringify(user));
 
-        return axios.get("http://localhost:5000/api/user/cartcount", {
-          withCredentials: true,
-        });
-      })
-      .then((res) => setConCart(res.data.count))
-      .catch(() => {
-        setUserName(null);
-        localStorage.removeItem("user");
-        setConCart(0);
-      })
-      .finally(() => {
-        setLoadingUser(false);
+      return axios.get("https://littlebee-backend.onrender.com/api/user/cartcount", {
+        withCredentials: true,
       });
-  }, []);
+    })
+    .then((res) => setConCart(res.data.count))
+    .catch(() => {
+      setUserName(null);
+      localStorage.removeItem("user");
+      setConCart(0);
+    })
+    .finally(() => {
+      setLoadingUser(false);
+    });
+}, []);
+
 
   const providerValue = {conCart,setConCart,userName,setUserName,loadingUser,setLoadingUser,};
 
