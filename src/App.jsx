@@ -1,13 +1,20 @@
 import React, { createContext, useEffect, useState } from "react";
-import {BrowserRouter as Router,Routes,Route,useLocation,Navigate} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import axios from "axios";
+
 import Home from "./components/Home/Home";
 import BestSellers from "./components/BestSell/BestSellers";
-import Shop from "./pages/Shop";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Shop from "./pages/Shop";
 import Productpage from "./pages/Productpage";
 import Cart from "./pages/Cart";
 import PaymentForm from "./pages/PaymentForm";
@@ -22,54 +29,74 @@ import EditProduct from "./components/admin/EditProduct";
 import ProductAdd from "./components/admin/ProductAdd";
 import ViewUser from "./components/admin/ViewUser";
 import Notfound from "./pages/Notfound";
-import { ToastContainer } from "react-toastify";
+
 import ProtectedRoute from "./components/ProtectedRoute";
-import NotFound from "./pages/Notfound";
+import { ToastContainer } from "react-toastify";
 
 export const ContextCart = createContext();
 
 const AppContent = () => {
   const location = useLocation();
+  const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+  const [userName, setUserName] = useState(storedUser);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [conCart, setConCart] = useState(0);
-  const [userName, setUserName] = useState(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/user/me", { withCredentials: true })
-      .then(res => {
-        const user = res.data.data;
-        setUserName(user);
-        return axios.get("http://localhost:5000/api/user/cartcount", { withCredentials: true });
+      .then((res) => {
+        setUserName(res.data.data);
+        localStorage.setItem("user", JSON.stringify(res.data.data));
+        return axios.get("http://localhost:5000/api/user/cartcount", {
+          withCredentials: true,
+        });
       })
-      .then(res => setConCart(res.data.count))
+      .then((res) => setConCart(res.data.count))
       .catch(() => {
         setUserName(null);
+        localStorage.removeItem("user");
         setConCart(0);
+      })
+      .finally(() => {
+        setLoadingUser(false);
       });
   }, []);
 
-  const providerValue = { conCart, setConCart, userName, setUserName };
+  const providerValue = {
+    conCart,
+    setConCart,
+    userName,
+    setUserName,
+    loadingUser,
+    setLoadingUser,
+  };
 
-  const hideNavbarPaths = ["/admin", "/productlist", "/user", "/add","/*"];
+  const hideNavbarPaths = ["/admin", "/productlist", "/user", "/add"];
   const hideFooterPaths = [
-    "/signup", "/login", "/cart", "/OrderList",
-    "/admin", "/error", "/shop", "/productlist",
-    "/user", "/add", "/buynowdetails",
+    "/signup",
+    "/login",
+    "/cart",
+    "/OrderList",
+    "/admin",
+    "/error",
+    "/shop",
+    "/productlist",
+    "/user",
+    "/add",
+    "/buynowdetails",
   ];
 
   return (
     <ContextCart.Provider value={providerValue}>
-      {!hideNavbarPaths.some(path => location.pathname.includes(path)) &&
-        !location.pathname.startsWith("/payment") &&
-        <Navbar />}
-      
+      {!hideNavbarPaths.some((path) => location.pathname.includes(path)) &&
+        !location.pathname.startsWith("/payment") && <Navbar />}
       <Routes>
-        {/* Home route – admin redirected */}
         <Route
           path="/"
           element={
             userName?.role === "admin" ? (
-              <Notfound />
+              <Navigate to="/dashboard" />
             ) : (
               <>
                 <Home />
@@ -79,24 +106,22 @@ const AppContent = () => {
           }
         />
 
-        {/* Shop route – admin redirected */}
         <Route
           path="/shop"
           element={
             userName?.role === "admin" ? (
-              <NotFound />
+              <Navigate to="/dashboard" />
             ) : (
               <Shop />
             )
           }
         />
 
-        {/* Public routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Productpage />} />
 
-        {/* User-only protected routes */}
+        {/* User-protected routes */}
         <Route
           path="/cart"
           element={
@@ -130,7 +155,8 @@ const AppContent = () => {
           }
         />
 
-        {/* Admin-only routes */}
+        {/* Admin-protected routes */}
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route
           path="/admin"
           element={
@@ -139,20 +165,19 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route
-          path="/productlist"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <ProductList />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/productlist"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <ProductList />
             </ProtectedRoute>
           }
         />
@@ -189,14 +214,12 @@ const AppContent = () => {
           }
         />
 
-        {/* Not found */}
         <Route path="*" element={<Notfound />} />
       </Routes>
 
       <ToastContainer />
-      {!hideFooterPaths.some(path => location.pathname.includes(path)) &&
-        !location.pathname.startsWith("/payment") &&
-        <Footer />}
+      {!hideFooterPaths.some((path) => location.pathname.includes(path)) &&
+        !location.pathname.startsWith("/payment") && <Footer />}
     </ContextCart.Provider>
   );
 };

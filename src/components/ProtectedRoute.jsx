@@ -3,11 +3,10 @@ import { Navigate } from "react-router-dom";
 import { ContextCart } from "../App";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userName } = useContext(ContextCart);
+  const { userName, loadingUser } = useContext(ContextCart);
 
-
-  if (userName === null) {
-    return <div>Loading...</div>;
+  if (loadingUser) {
+    return <div className="text-center py-10">Loading...</div>;
   }
 
   if (!userName) {

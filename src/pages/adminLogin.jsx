@@ -1,26 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ContextCart } from "../App";
+import { toast } from "react-toastify";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUserName } = useContext(ContextCart);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/admin/login", { email, password }, { withCredentials: true });
+      const res = await axios.post(
+        "http://localhost:5000/api/admin/login",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      const userData = {
+        name: email,
+        role: "admin",
+        _id: "admin_static" 
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      setUserName(userData);
+      toast.success("Admin login successful");
       navigate("/admin");
     } catch (err) {
-      alert("Invalid admin credentials");
+      toast.error("Invalid admin credentials");
     }
   };
-   useEffect(()=>{
-    axios.get("http://localhost:5000/api/user/me",{withCredentials:true})
-    .then((res)=>setUserId(res.data.user))
-    .catch((err)=>console.log("the fetching error",+err))
-  },[])
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">

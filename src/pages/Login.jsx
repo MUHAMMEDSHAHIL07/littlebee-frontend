@@ -11,34 +11,42 @@ const initialValues = {
 };
 
 const Login = () => {
-  const {setUserName}=useContext(ContextCart)
+  const { setUserName } = useContext(ContextCart);
   const navigate = useNavigate();
-  const buttonref = useRef()
+  const buttonref = useRef();
 
   useEffect(() => {
-    buttonref.current.focus()
-  }, [])
+    buttonref.current.focus();
+  }, []);
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     onSubmit: (values) => {
       axios
-        .post("http://localhost:5000/api/user/login",values,{withCredentials:true})
-        .then((response) =>{
-          const user = response.data.data
-          if(user.role=="admin"){
-            toast.error("use admin login")
-          }
-          else{
-          toast.success("login")
-          setUserName(user)
-         navigate("/")
+        .post("http://localhost:5000/api/user/login", values, { withCredentials: true })
+        .then((response) => {
+          const user = response.data.data;
+
+          if (user.role === "admin") {
+            toast.error("Use admin login");
+          } else {
+
+            const userData = {
+              name: user.name,
+              role: user.role,
+              // _id: user._id
+            };
+            localStorage.setItem("user", JSON.stringify(userData));
+
+            toast.success("Login successful");
+            setUserName(user);
+            navigate("/");
           }
         })
-        .catch((error) =>{ 
-          const msg = error.response?.data?.message || error.message
-          toast.error(msg)})
-          ;   
+        .catch((error) => {
+          const msg = error.response?.data?.message || error.message;
+          toast.error(msg);
+        });
     },
   });
 
@@ -47,7 +55,6 @@ const Login = () => {
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-96">
         <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Login Here</h1>
         <form className="space-y-5" onSubmit={handleSubmit}>
-
           <div>
             <label className="block font-medium text-gray-700">Email:</label>
             <input
