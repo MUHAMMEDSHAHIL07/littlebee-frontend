@@ -22,7 +22,6 @@ const AdminLogin = () => {
       const userData = {
         name: email,
         role: "admin",
-        _id: "admin_static" 
       };
       localStorage.setItem("user", JSON.stringify(userData));
 
