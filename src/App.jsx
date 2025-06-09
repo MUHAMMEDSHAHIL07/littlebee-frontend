@@ -38,7 +38,9 @@ export const ContextCart = createContext();
 
 const AppContent = () => {
   const location = useLocation();
-  const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+const storedUser = JSON.parse(localStorage.getItem("user"));
+
+
   const [userName, setUserName] = useState(storedUser);
   const [loadingUser, setLoadingUser] = useState(true);
   const [conCart, setConCart] = useState(0);
@@ -47,8 +49,9 @@ const AppContent = () => {
     axios
       .get("http://localhost:5000/api/user/me", { withCredentials: true })
       .then((res) => {
-        setUserName(res.data.data);
-        localStorage.setItem("user", JSON.stringify(res.data.data));
+        const user = res.data.data
+        setUserName(user);
+        localStorage.setItem("user", JSON.stringify(user));
         return axios.get("http://localhost:5000/api/user/cartcount", {
           withCredentials: true,
         });
@@ -121,16 +124,15 @@ const AppContent = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Productpage />} />
-
-        {/* User-protected routes */}
         <Route
-          path="/cart"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
+  path="/cart"
+  element={
+    <ProtectedRoute allowedRoles={["user"]}>
+      <Cart />
+    </ProtectedRoute>
+  }
+/>
+
         <Route
           path="/payment/:id"
           element={

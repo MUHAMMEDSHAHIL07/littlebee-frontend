@@ -30,13 +30,13 @@ const Login = () => {
           if (user.role === "admin") {
             toast.error("Use admin login");
           } else {
-            // ✅ Only store role
-            localStorage.setItem("role", user.role);
+            
 
-            toast.success("Login successful");
+          const { _id, name, role } = res.data.data;
+             localStorage.setItem("user", JSON.stringify({ _id, name, role }));
+               toast.success("Login successful");
+            setUserName(user);
 
-            // ✅ Only keep role in context too
-            setUserName({ role: user.role });
 
             navigate("/");
           }

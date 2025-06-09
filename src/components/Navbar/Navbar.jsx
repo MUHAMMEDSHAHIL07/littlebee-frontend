@@ -25,13 +25,11 @@ const handleLogout = () => {
   axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
     .then(() => {
       setUserName(null);
-      localStorage.removeItem("user");
       localStorage.removeItem("role");
       navigate("/login");
     })
     .catch(() => {
       setUserName(null);
-      localStorage.removeItem("user");
       localStorage.removeItem("role");
       navigate("/login");
     });

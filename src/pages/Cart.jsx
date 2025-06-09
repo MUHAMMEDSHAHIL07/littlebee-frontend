@@ -3,13 +3,11 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ContextCart } from '../App';
 import { toast } from 'react-toastify';
-import NotFound from './Notfound';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const { setConCart } = useContext(ContextCart);
   const [paymentMethod, setPaymentMethod] = useState('cod'); 
-  const [userId,setUserId]=useState(null)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,14 +22,6 @@ const Cart = () => {
         setConCart(0);
       });
   }, []);
-
-
-
-  useEffect(()=>{
-    axios.get("http://localhost:5000/api/user/me",{withCredentials:true})
-    .then((res)=>setUserId(res.data.user))
-    .catch((err)=>console.log("the fetching error",+err))
-  },[])
 
 
   const remove = productId => {
@@ -140,11 +130,7 @@ const placeOrder = async () => {
   }
 };
 
-if(!userId){
-  return(
-    <NotFound/>
-  )
-}
+
 
 
   return (

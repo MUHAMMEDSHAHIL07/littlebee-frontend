@@ -18,8 +18,9 @@ const AdminLogin = () => {
         { email, password },
         { withCredentials: true }
       );
-      localStorage.setItem("role", "admin");
-      setUserName({ role: "admin" });
+     localStorage.setItem("user", JSON.stringify({ role: "admin" }));
+setUserName({ role: "admin" });
+
 
       toast.success("Admin login successful");
       navigate("/admin");

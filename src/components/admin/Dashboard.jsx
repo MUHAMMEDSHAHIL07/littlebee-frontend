@@ -12,7 +12,7 @@ const Dashboard = () => {
   };
 
 
-const handleAdminLogout = () => {
+const handleLogout = () => {
   axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
     .then(() => {
       setUserName(null);
