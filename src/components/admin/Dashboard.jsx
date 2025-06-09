@@ -12,19 +12,22 @@ const Dashboard = () => {
   };
 
 
-    const handleLogout = () => {
-    axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
-      .then(() => {
-        setUserName(null);
-        localStorage.removeItem("user");
-        navigate("/admin-login");
-      })
-      .catch(() => {
-        setUserName(null);
-        localStorage.removeItem("user");
-        navigate("/admin-login");
-      });
-  };
+const handleAdminLogout = () => {
+  axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
+    .then(() => {
+      setUserName(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      navigate("/admin-login");
+    })
+    .catch(() => {
+      setUserName(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      navigate("/admin-login");
+    });
+};
+
 
 
 
