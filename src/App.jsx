@@ -111,7 +111,7 @@ const AppContent = () => {
           path="/shop"
           element={
             userName?.role === "admin" ? (
-              <Navigate to="/dashboard" />
+             <NotFound />
             ) : (
               <Shop />
             )
