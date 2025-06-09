@@ -3,14 +3,13 @@ import Dashboard from "./Dashboard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import NotFound from "../../pages/Notfound";
 
 const ProductList = () => {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
    const [userId,setUserId]=useState(null) 
-const navigate=useNavigate()
+  const navigate=useNavigate()
 
   const [postPerPage] = useState(7);
   useEffect(() => {
@@ -55,12 +54,6 @@ const navigate=useNavigate()
     setCurrentPage(1);
   }, [search]);
   
-     if(!userId){
-      return(
-        <NotFound/>
-      )
-    }
-
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Dashboard />

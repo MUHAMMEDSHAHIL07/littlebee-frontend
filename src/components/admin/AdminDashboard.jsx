@@ -30,7 +30,7 @@ const AdminDashboard = () => {
         }
       })
       .catch(() => {
-        navigate("/");
+        navigate("/")
       });
   }, []);
 

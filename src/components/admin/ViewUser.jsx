@@ -89,11 +89,6 @@ const Unblockuser = (id) => {
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
   }
-  if(!userId){
-    return (
-      <NotFound/>
-    )
-  }
 
   return (
     <div className="flex min-h-screen bg-gray-100">

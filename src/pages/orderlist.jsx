@@ -24,11 +24,7 @@ const OrderList = () => {
     .catch((err)=>console.log("the fetching error",+err))
   },[])
 
-   if(!userId){
-      return(
-        <NotFound/>
-      )
-    }
+
 
   return (
     <div className="max-w-7xl mx-auto p-6">
