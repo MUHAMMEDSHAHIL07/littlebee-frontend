@@ -68,7 +68,7 @@ const AppContent = () => {
           path="/"
           element={
             userName?.role === "admin" ? (
-              <Navigate to="/dashboard" />
+              <Notfound />
             ) : (
               <>
                 <Home />
