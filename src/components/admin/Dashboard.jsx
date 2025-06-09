@@ -16,10 +16,12 @@ const Dashboard = () => {
     axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
       .then(() => {
         setUserName(null);
+        localStorage.removeItem("user");
         navigate("/admin-login");
       })
       .catch(() => {
         setUserName(null);
+        localStorage.removeItem("user");
         navigate("/admin-login");
       });
   };

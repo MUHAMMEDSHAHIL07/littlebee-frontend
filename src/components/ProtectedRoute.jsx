@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { ContextCart } from "../App";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userName, loadingUser } = useContext(ContextCart);
+  const { userName, setUserName, loadingUser, setLoadingUser } = useContext(ContextCart);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser && !userName) {
+      setUserName(JSON.parse(storedUser));
+    }
+    setLoadingUser(false); 
+  }, [userName, setUserName, setLoadingUser]);
 
   if (loadingUser) {
     return <div className="text-center py-10">Loading...</div>;

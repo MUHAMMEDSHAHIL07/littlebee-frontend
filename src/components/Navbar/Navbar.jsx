@@ -20,18 +20,21 @@ const Navbar = () => {
         .catch((error) => console.log(error));
     }
   }, [userName?._id, setUserName]);
-  const handleLogout = () => {
-    axios
-      .post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
-      .then(() => {
-        setUserName(null);
-        navigate("/login");
-      })
-      .catch(() => {
-        setUserName(null);
-        navigate("/login");
-      });
-  };
+const handleLogout = () => {
+  axios
+    .post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
+    .then(() => {
+      setUserName(null);
+      localStorage.removeItem("user"); 
+      navigate("/login");
+    })
+    .catch(() => {
+      setUserName(null);
+      localStorage.removeItem("user");
+      navigate("/login");
+    });
+};
+
 
   return (
     <nav className="bg-white shadow-md py-4 px-4 sm:px-6 lg:px-8 fixed w-full top-0 z-50">

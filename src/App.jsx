@@ -32,6 +32,7 @@ import Notfound from "./pages/Notfound";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
+import NotFound from "./pages/Notfound";
 
 export const ContextCart = createContext();
 
@@ -96,7 +97,7 @@ const AppContent = () => {
           path="/"
           element={
             userName?.role === "admin" ? (
-              <Navigate to="/dashboard" />
+              <NotFound />
             ) : (
               <>
                 <Home />
