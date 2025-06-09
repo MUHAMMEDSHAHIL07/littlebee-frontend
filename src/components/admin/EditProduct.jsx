@@ -14,7 +14,7 @@ const EditProduct = () => {
     gender: ""
   })
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/admin/product/${id}`, { withCredentials: true })
+    axios.get(`https://littlebee-backend.onrender.com/api/admin/product/${id}`, { withCredentials: true })
       .then((response) => setProduct(response.data.product))
       .catch(err => {
         console.log(err)
@@ -28,7 +28,7 @@ const EditProduct = () => {
 
   const submit = (e) => {
     e.preventDefault()
-    axios.patch(`http://localhost:5000/api/admin/editproduct/${id}`, product, { withCredentials: true })
+    axios.patch(`https://littlebee-backend.onrender.com/api/admin/editproduct/${id}`, product, { withCredentials: true })
       .then((response) => {
         toast.success("Successfully edited")
         navigate(`/admin/product/${id}`)

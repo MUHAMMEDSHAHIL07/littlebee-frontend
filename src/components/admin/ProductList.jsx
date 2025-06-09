@@ -14,7 +14,7 @@ const ProductList = () => {
   const [postPerPage] = useState(7);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/allproduct",{withCredentials:true})
+      .get("https://littlebee-backend.onrender.com/api/admin/allproduct",{withCredentials:true})
       .then((response) => {
         setProducts(response.data.products)
         setUserId(response.data.user)
@@ -27,7 +27,7 @@ const ProductList = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/api/admin/delete/${id}`,{ withCredentials: true })
+      .delete(`https://littlebee-backend.onrender.com/api/admin/delete/${id}`,{ withCredentials: true })
       .then(() => {
         toast.success("Item deleted");
         setProducts(products.filter((item) => item._id !== id));

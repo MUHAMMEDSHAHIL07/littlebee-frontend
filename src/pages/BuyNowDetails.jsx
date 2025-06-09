@@ -34,7 +34,7 @@ const BuyNowDetails = () => {
 if (paymentMethod === "razorpay") {
   try {
     const razorpayRes = await axios.post(
-      "http://localhost:5000/api/payment/create-order",
+      "https://littlebee-backend.onrender.com/api/payment/create-order",
       { amount: product.price },
       { withCredentials: true }
     );
@@ -61,7 +61,7 @@ if (paymentMethod === "razorpay") {
           paymentMethod: "Razorpay",
         };
 
-        await axios.post("http://localhost:5000/api/user/order", orderData, {
+        await axios.post("https://littlebee-backend.onrender.com/api/user/order", orderData, {
           withCredentials: true,
         });
 
@@ -103,7 +103,7 @@ if (paymentMethod === "razorpay") {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/user/order",
+        "https://littlebee-backend.onrender.com/api/user/order",
         orderData,
         { withCredentials: true }
       );

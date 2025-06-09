@@ -12,7 +12,7 @@ const Cart = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/user/getCart', { withCredentials: true })
+      .get('https://littlebee-backend.onrender.com/api/user/getCart', { withCredentials: true })
       .then(res => {
         setCart(res.data.cart);
         setConCart(res.data.count);
@@ -26,7 +26,7 @@ const Cart = () => {
 
   const remove = productId => {
     axios
-      .delete(`http://localhost:5000/api/user/removeItem/${productId}`, { withCredentials: true })
+      .delete(`https://littlebee-backend.onrender.com/api/user/removeItem/${productId}`, { withCredentials: true })
       .then(() => {
         const updatedCart = cart.filter(item => item.Product._id !== productId);
         setCart(updatedCart);
@@ -44,7 +44,7 @@ const Cart = () => {
 
     axios
       .patch(
-        `http://localhost:5000/api/user/updateQuantity/${productId}`,
+        `https://littlebee-backend.onrender.com/api/user/updateQuantity/${productId}`,
         { quantity: newQty },
         { withCredentials: true }
       )
@@ -69,7 +69,7 @@ const placeOrder = async () => {
 
       // 1. Create Razorpay order from backend
       const razorpayRes = await axios.post(
-        'http://localhost:5000/api/payment/create-order',
+        'https://littlebee-backend.onrender.com/api/payment/create-order',
         { amount: totalAmount },
         { withCredentials: true }
       );
@@ -87,7 +87,7 @@ const placeOrder = async () => {
         handler: async function (response) {
           try {
             const res = await axios.post(
-              'http://localhost:5000/api/user/buyFromCart',
+              'https://littlebee-backend.onrender.com/api/user/buyFromCart',
               { paymentMethod: "Razorpay" },
               { withCredentials: true }
             );
@@ -116,7 +116,7 @@ const placeOrder = async () => {
   // 🧾 COD Flow
   try {
     const res = await axios.post(
-      'http://localhost:5000/api/user/buyFromCart',
+      'https://littlebee-backend.onrender.com/api/user/buyFromCart',
       { paymentMethod: "cod" },
       { withCredentials: true }
     );

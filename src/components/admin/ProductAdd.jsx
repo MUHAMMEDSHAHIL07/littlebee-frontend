@@ -38,7 +38,7 @@ const ProductAdd = () => {
     formData.append("image", imageFile); // image file for Cloudinary
 
     axios
-      .post("http://localhost:5000/api/admin/products", formData, {
+      .post("https://littlebee-backend.onrender.com/api/admin/products", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data"

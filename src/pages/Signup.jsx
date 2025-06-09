@@ -20,7 +20,7 @@ const Signup = () => {
     validationSchema: SignupSchema,
     onSubmit: (values) => {
       axios
-        .post("http://localhost:5000/api/user/register", values)
+        .post("https://littlebee-backend.onrender.com/api/user/register", values)
         .then((response) => {
           console.log(response);
           toast.success('User registered successfully! Please login'); 

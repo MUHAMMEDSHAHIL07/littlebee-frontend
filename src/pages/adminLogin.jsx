@@ -14,7 +14,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/admin/login",
+        "https://littlebee-backend.onrender.com/api/admin/login",
         { email, password },
         { withCredentials: true }
       );

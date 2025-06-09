@@ -13,7 +13,7 @@ const Dashboard = () => {
 
 
 const handleLogout = () => {
-  axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
+  axios.post("https://littlebee-backend.onrender.com/api/user/logout", {}, { withCredentials: true })
     .then(() => {
       setUserName(null);
       localStorage.removeItem("user");

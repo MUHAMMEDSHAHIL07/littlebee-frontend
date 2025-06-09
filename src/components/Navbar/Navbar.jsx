@@ -13,7 +13,7 @@ const Navbar = () => {
   useEffect(() => {
     if (userName) {
       axios
-        .get("http://localhost:5000/api/user/me",{ withCredentials: true })
+        .get("https://littlebee-backend.onrender.com/api/user/me",{ withCredentials: true })
         .then((response) => {
           setUserName(response.data.data)
         })
@@ -22,7 +22,7 @@ const Navbar = () => {
   }, [userName?._id, setUserName]);
 
 const handleLogout = () => {
-  axios.post("http://localhost:5000/api/user/logout", {}, { withCredentials: true })
+  axios.post("https://littlebee-backend.onrender.com/api/user/logout", {}, { withCredentials: true })
     .then(() => {
       setUserName(null);
       localStorage.removeItem("role");

@@ -13,7 +13,7 @@ const Productpage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/user/product/${id}`)
+      .get(`https://littlebee-backend.onrender.com/api/user/product/${id}`)
       .then((response) => setData(response.data))
       .catch((error) => console.log(error));
   }, [id]);
@@ -27,7 +27,7 @@ const Productpage = () => {
     userId: userName._id,
     Productid: data._id,
   }
-  axios.post("http://localhost:5000/api/user/addtocart",cartData,{withCredentials:true})
+  axios.post("https://littlebee-backend.onrender.com/api/user/addtocart",cartData,{withCredentials:true})
    .then((response) => {
       toast.success("Product added to cart")
       setConCart((prev) => prev + 1);

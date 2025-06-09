@@ -23,7 +23,7 @@ const Login = () => {
     initialValues,
     onSubmit: (values) => {
       axios
-        .post("http://localhost:5000/api/user/login", values, { withCredentials: true })
+        .post("https://littlebee-backend.onrender.com/api/user/login", values, { withCredentials: true })
         .then((response) => {
           const user = response.data.data;
 

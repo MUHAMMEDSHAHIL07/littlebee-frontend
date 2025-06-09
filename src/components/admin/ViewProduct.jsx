@@ -7,7 +7,7 @@ const {id} = useParams()
 const [product,setProduct] = useState([])
 const navigate=useNavigate()
 useEffect(()=>{
-axios.get(`http://localhost:5000/api/admin/product/${id}`, { withCredentials: true })
+axios.get(`https://littlebee-backend.onrender.com/api/admin/product/${id}`, { withCredentials: true })
 
     .then((response)=>{setProduct(response.data.product)
      console.log(response.data);

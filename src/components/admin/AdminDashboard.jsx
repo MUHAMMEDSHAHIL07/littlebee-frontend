@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/admin/getAllOrder", { withCredentials: true })
+    axios.get("https://littlebee-backend.onrender.com/api/admin/getAllOrder", { withCredentials: true })
       .then(res => {
         setAllOrders(res.data.Orders || []);
       })
@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/me", { withCredentials: true })
+      .get("https://littlebee-backend.onrender.com/api/admin/me", { withCredentials: true })
       .then((res) => {
         if (res.data.data.role == "admin") {
           navigate("/admin");
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/allproduct", { withCredentials: true })
+      .get("https://littlebee-backend.onrender.com/api/admin/allproduct", { withCredentials: true })
       .then((response) => {
         setProducts(response.data.products)
       })
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/users", { withCredentials: true })
+      .get("https://littlebee-backend.onrender.com/api/admin/users", { withCredentials: true })
       .then((response) => {
         setUsers(response.data.data)
 

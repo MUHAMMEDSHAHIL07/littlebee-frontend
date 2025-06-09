@@ -13,7 +13,7 @@ const Shop = () => {
   useEffect(() => {
     const data = location.state?.value || "";
     setLoading(true);
-    axios.get("http://localhost:5000/api/user/product")
+    axios.get("https://littlebee-backend.onrender.com/api/user/product")
       .then((response) => {
         const filteredData = data
           ? response.data.filter((item) =>

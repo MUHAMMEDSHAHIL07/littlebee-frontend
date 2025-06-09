@@ -7,7 +7,7 @@ const OrderList = () => {
     const [userId,setUserId]=useState(null)
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/user/getOrder", { withCredentials: true }) 
+      .get("https://littlebee-backend.onrender.com/api/user/getOrder", { withCredentials: true }) 
       .then((response) => {
         setOrders(response.data.orders || []);
       })
@@ -19,7 +19,7 @@ const OrderList = () => {
 
 
  useEffect(()=>{
-    axios.get("http://localhost:5000/api/user/me",{withCredentials:true})
+    axios.get("https://littlebee-backend.onrender.com/api/user/me",{withCredentials:true})
     .then((res)=>setUserId(res.data.user))
     .catch((err)=>console.log("the fetching error",+err))
   },[])

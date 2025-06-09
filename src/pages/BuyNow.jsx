@@ -10,7 +10,7 @@ const BuyNow = ({ product }) => {
     if (paymentMethod === "COD") {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/user/order",
+          "https://littlebee-backend.onrender.com/api/user/order",
           {
             items: [{ productId: product._id, quantity: 1 }],
             paymentMethod: "Cash on Delivery",

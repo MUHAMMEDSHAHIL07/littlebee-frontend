@@ -18,7 +18,7 @@ const ViewUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/users",{withCredentials:true})
+      .get("https://littlebee-backend.onrender.com/api/admin/users",{withCredentials:true})
       .then((res) => {
         setUser(res.data.data)
         setUserId(req.data.user)
@@ -30,7 +30,7 @@ const ViewUser = () => {
 
   useEffect(() => {
   axios
-    .get("http://localhost:5000/api/admin/users", { withCredentials: true })
+    .get("https://littlebee-backend.onrender.com/api/admin/users", { withCredentials: true })
     .then((res) => {
       const nonAdminUsers = res.data.data.filter(user => user.role !== "admin");
       setUser(nonAdminUsers);
@@ -41,7 +41,7 @@ const ViewUser = () => {
 
 const Blockuser = (id) => {
   axios
-    .patch(`http://localhost:5000/api/admin/user/block/${id}`, { isActive: false }, { withCredentials: true })
+    .patch(`https://littlebee-backend.onrender.com/api/admin/user/block/${id}`, { isActive: false }, { withCredentials: true })
     .then(() => {
       setUser((prevUsers) =>
         prevUsers.map((user) =>
@@ -59,7 +59,7 @@ const Blockuser = (id) => {
 
 const Unblockuser = (id) => {
   axios
-    .patch(`http://localhost:5000/api/admin/user/block/${id}`, { isActive: true }, { withCredentials: true })
+    .patch(`https://littlebee-backend.onrender.com/api/admin/user/block/${id}`, { isActive: true }, { withCredentials: true })
     .then(() => {
       setUser((prevUsers) =>
         prevUsers.map((user) =>
