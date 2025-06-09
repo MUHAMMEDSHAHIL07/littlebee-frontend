@@ -50,11 +50,11 @@ const AppContent = () => {
 
   const providerValue = { conCart, setConCart, userName, setUserName };
 
-  const hideNavbarPaths = ["/admin", "/productlist", "/user", "/add"];
+  const hideNavbarPaths = ["/admin", "/productlist", "/user", "/add","/*"];
   const hideFooterPaths = [
     "/signup", "/login", "/cart", "/OrderList",
     "/admin", "/error", "/shop", "/productlist",
-    "/user", "/add", "/buynowdetails"
+    "/user", "/add", "/buynowdetails",
   ];
 
   return (
