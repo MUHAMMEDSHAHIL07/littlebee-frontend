@@ -24,6 +24,7 @@ import ViewUser from "./components/admin/ViewUser";
 import Notfound from "./pages/Notfound";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound from "./pages/Notfound";
 
 export const ContextCart = createContext();
 
@@ -83,7 +84,7 @@ const AppContent = () => {
           path="/shop"
           element={
             userName?.role === "admin" ? (
-              <Navigate to="/dashboard" />
+              <NotFound />
             ) : (
               <Shop />
             )
