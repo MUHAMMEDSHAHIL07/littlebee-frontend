@@ -61,13 +61,12 @@ const placeOrder = async () => {
 
   if (paymentMethod === 'Razorpay') {
     try {
-      // Calculate total amount
+      
       const totalAmount = cart.reduce(
         (sum, item) => sum + item.Product.price * item.quantity,
         0
       );
 
-      // 1. Create Razorpay order from backend
       const razorpayRes = await axios.post(
         'https://littlebee-backend.onrender.com/api/payment/create-order',
         { amount: totalAmount },
@@ -76,9 +75,9 @@ const placeOrder = async () => {
 
       const { id: order_id, amount, currency } = razorpayRes.data;
 
-      // 2. Configure Razorpay Options
+
       const options = {
-        key: "rzp_test_l1qT8fmcI3x6pw", // Use your actual Razorpay key
+        key: "rzp_test_l1qT8fmcI3x6pw", 
         amount,
         currency,
         name: "Little Bee",
@@ -113,7 +112,6 @@ const placeOrder = async () => {
     return;
   }
 
-  // 🧾 COD Flow
   try {
     const res = await axios.post(
       'https://littlebee-backend.onrender.com/api/user/buyFromCart',

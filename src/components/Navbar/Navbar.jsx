@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const {conCart,userName,setUserName}=useContext(ContextCart)
+  const {conCart,userName,setUserName}=useContext(ContextCart)  
   
   useEffect(() => {
     if (userName) {
