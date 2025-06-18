@@ -4,7 +4,6 @@ import Dashboard from "./Dashboard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import NotFound from "../../pages/Notfound";
 
 const ViewUser = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
